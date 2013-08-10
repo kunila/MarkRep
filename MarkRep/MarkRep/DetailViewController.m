@@ -8,6 +8,8 @@
 
 #import "DetailViewController.h"
 #import "RootViewController.h"
+#import "PageViewController.h"
+#import "DataSource.h"
 
 @interface DetailViewController ()
 
@@ -21,6 +23,67 @@
 
 #pragma mark -
 #pragma mark Managing the detail item
+
+- (void)applyNewIndex:(NSInteger)newIndex pageController:(PageViewController *)pageController
+{
+	NSInteger pageCount = [[DataSource sharedDataSource] numDataPages];
+	BOOL outOfBounds = newIndex >= pageCount || newIndex < 0;
+    
+	if (!outOfBounds)
+	{
+		CGRect pageFrame = pageController.view.frame;
+		pageFrame.origin.y = 0;
+		pageFrame.origin.x = scrollView.frame.size.width * newIndex;
+		pageController.view.frame = pageFrame;
+	}
+	else
+	{
+		CGRect pageFrame = pageController.view.frame;
+		pageFrame.origin.y = scrollView.frame.size.height;
+		pageController.view.frame = pageFrame;
+	}
+    
+	pageController.pageIndex = newIndex;
+}
+
+
+- (void)viewDidLoad{
+    
+    currentPage = [[PageViewController alloc] initWithNibName:@"PageView" bundle:nil];
+	nextPage = [[PageViewController alloc] initWithNibName:@"PageView" bundle:nil];
+	[scrollView addSubview:currentPage.view];
+	[scrollView addSubview:nextPage.view];
+    
+	NSInteger widthCount = [[DataSource sharedDataSource] numDataPages];
+	if (widthCount == 0)
+	{
+		widthCount = 1;
+	}
+	
+    scrollView.contentSize =
+    CGSizeMake(
+               scrollView.frame.size.width * widthCount,
+               scrollView.frame.size.height);
+	scrollView.contentOffset = CGPointMake(0, 0);
+    
+	pageControl.numberOfPages = [[DataSource sharedDataSource] numDataPages];
+	pageControl.currentPage = 0;
+	
+	[self applyNewIndex:0 pageController:currentPage];
+	[self applyNewIndex:1 pageController:nextPage];
+
+    
+    UISwipeGestureRecognizer *recognizer = [[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(swipeHandler:)];
+    
+    //[recognizer setDirection:(UISwipeGestureRecognizerDirectionRight)];
+    
+    [self.view addGestureRecognizer:recognizer];
+    
+}
+
+-(void)swipeHandler:(UISwipeGestureRecognizer *)recognizer {
+    NSLog(@"Swipe received.");
+}
 
 
 // When setting the detail item, update the view and dismiss the popover controller if it's showing.
@@ -46,11 +109,89 @@
 {
     // Update the user interface for the detail item.
     detailDescriptionLabel.text = [detailItem description];
-	toggleItem.title = ([splitController isShowingMaster]) ? @"Hide Master" : @"Show Master"; // "I... AM... THE MASTER!" Derek Jacobi. Gave me chills.
+	toggleItem.title = ([splitController isShowingMaster]) ? @"Hide Index" : @"Show Index"; // "I... AM... THE MASTER!" Derek Jacobi. Gave me chills.
 	//verticalItem.title = (splitController.vertical) ? @"Horizontal Split" : @"Vertical Split";
-	dividerStyleItem.title = (splitController.dividerStyle == MGSplitViewDividerStyleThin) ? @"Enable Dragging" : @"Disable Dragging";
+	dividerStyleItem.title = (splitController.dividerStyle == MGSplitViewDividerStyleThin) ? @"Enable Drag" : @"Disable Drag";
 	//masterBeforeDetailItem.title = (splitController.masterBeforeDetail) ? @"Detail First" : @"Master First";
 }
+
+
+- (void)scrollViewDidScroll:(UIScrollView *)sender
+{
+    CGFloat pageWidth = scrollView.frame.size.width;
+    float fractionalPage = scrollView.contentOffset.x / pageWidth;
+	
+	NSInteger lowerNumber = floor(fractionalPage);
+	NSInteger upperNumber = lowerNumber + 1;
+	
+	if (lowerNumber == currentPage.pageIndex)
+	{
+		if (upperNumber != nextPage.pageIndex)
+		{
+			[self applyNewIndex:upperNumber pageController:nextPage];
+		}
+	}
+	else if (upperNumber == currentPage.pageIndex)
+	{
+		if (lowerNumber != nextPage.pageIndex)
+		{
+			[self applyNewIndex:lowerNumber pageController:nextPage];
+		}
+	}
+	else
+	{
+		if (lowerNumber == nextPage.pageIndex)
+		{
+			[self applyNewIndex:upperNumber pageController:currentPage];
+		}
+		else if (upperNumber == nextPage.pageIndex)
+		{
+			[self applyNewIndex:lowerNumber pageController:currentPage];
+		}
+		else
+		{
+			[self applyNewIndex:lowerNumber pageController:currentPage];
+			[self applyNewIndex:upperNumber pageController:nextPage];
+		}
+	}
+	
+	[currentPage updateTextViews:NO];
+	[nextPage updateTextViews:NO];
+}
+
+- (void)scrollViewDidEndScrollingAnimation:(UIScrollView *)newScrollView
+{
+    CGFloat pageWidth = scrollView.frame.size.width;
+    float fractionalPage = scrollView.contentOffset.x / pageWidth;
+	NSInteger nearestNumber = lround(fractionalPage);
+    
+	if (currentPage.pageIndex != nearestNumber)
+	{
+		PageViewController *swapController = currentPage;
+		currentPage = nextPage;
+		nextPage = swapController;
+	}
+    
+	[currentPage updateTextViews:YES];
+}
+
+- (void)scrollViewDidEndDecelerating:(UIScrollView *)newScrollView
+{
+	[self scrollViewDidEndScrollingAnimation:newScrollView];
+	pageControl.currentPage = currentPage.pageIndex;
+}
+
+- (IBAction)changePage:(id)sender
+{
+	NSInteger pageIndex = pageControl.currentPage;
+    
+	// update the scroll view to the appropriate page
+    CGRect frame = scrollView.frame;
+    frame.origin.x = frame.size.width * pageIndex;
+    frame.origin.y = 0;
+    [scrollView scrollRectToVisible:frame animated:YES];
+}
+
 
 
 #pragma mark -
@@ -174,6 +315,9 @@
 - (void)dealloc
 {
     //[popoverController release];
+    
+    [currentPage release];
+	[nextPage release];
     [toolbar release];
     
     [detailItem release];

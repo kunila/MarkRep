@@ -23,6 +23,9 @@
 		085ED0A117B617330037B9C3 /* MGSplitDividerView.m in Sources */ = {isa = PBXBuildFile; fileRef = 085ED09D17B617330037B9C3 /* MGSplitDividerView.m */; };
 		085ED0A217B617330037B9C3 /* MGSplitCornersView.m in Sources */ = {isa = PBXBuildFile; fileRef = 085ED09F17B617330037B9C3 /* MGSplitCornersView.m */; };
 		085ED0A517B61B960037B9C3 /* MainWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = 085ED0A417B61B960037B9C3 /* MainWindow.xib */; };
+		085ED0A917B6577A0037B9C3 /* DataSource.m in Sources */ = {isa = PBXBuildFile; fileRef = 085ED0A817B6577A0037B9C3 /* DataSource.m */; };
+		085ED0AD17B658B90037B9C3 /* PageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 085ED0AC17B658B90037B9C3 /* PageViewController.m */; };
+		085ED0AF17B660C70037B9C3 /* PageView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 085ED0AE17B660C70037B9C3 /* PageView.xib */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -51,6 +54,12 @@
 		085ED09E17B617330037B9C3 /* MGSplitCornersView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MGSplitCornersView.h; sourceTree = "<group>"; };
 		085ED09F17B617330037B9C3 /* MGSplitCornersView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MGSplitCornersView.m; sourceTree = "<group>"; };
 		085ED0A417B61B960037B9C3 /* MainWindow.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MainWindow.xib; sourceTree = "<group>"; };
+		085ED0A717B657790037B9C3 /* DataSource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DataSource.h; sourceTree = "<group>"; };
+		085ED0A817B6577A0037B9C3 /* DataSource.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DataSource.m; sourceTree = "<group>"; };
+		085ED0AA17B658770037B9C3 /* SynthesizeSingleton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SynthesizeSingleton.h; sourceTree = "<group>"; };
+		085ED0AB17B658B90037B9C3 /* PageViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PageViewController.h; sourceTree = "<group>"; };
+		085ED0AC17B658B90037B9C3 /* PageViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PageViewController.m; sourceTree = "<group>"; };
+		085ED0AE17B660C70037B9C3 /* PageView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PageView.xib; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -107,6 +116,7 @@
 		083E193517B39ADC00FEF051 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				085ED0AA17B658770037B9C3 /* SynthesizeSingleton.h */,
 				083E193617B39ADC00FEF051 /* MarkRep-Info.plist */,
 				083E193717B39ADC00FEF051 /* InfoPlist.strings */,
 				083E193A17B39ADC00FEF051 /* main.m */,
@@ -134,6 +144,7 @@
 		085ED0A317B61B750037B9C3 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				085ED0AE17B660C70037B9C3 /* PageView.xib */,
 				085ED0A417B61B960037B9C3 /* MainWindow.xib */,
 				085ED09617B6152F0037B9C3 /* DetailView.xib */,
 			);
@@ -150,6 +161,10 @@
 				085ED09217B614FD0037B9C3 /* RootViewController.m */,
 				085ED09417B6152F0037B9C3 /* DetailViewController.h */,
 				085ED09517B6152F0037B9C3 /* DetailViewController.m */,
+				085ED0A717B657790037B9C3 /* DataSource.h */,
+				085ED0A817B6577A0037B9C3 /* DataSource.m */,
+				085ED0AB17B658B90037B9C3 /* PageViewController.h */,
+				085ED0AC17B658B90037B9C3 /* PageViewController.m */,
 			);
 			name = Classes;
 			sourceTree = "<group>";
@@ -211,6 +226,7 @@
 				083E194517B39ADC00FEF051 /* Default-568h@2x.png in Resources */,
 				085ED09817B6152F0037B9C3 /* DetailView.xib in Resources */,
 				085ED0A517B61B960037B9C3 /* MainWindow.xib in Resources */,
+				085ED0AF17B660C70037B9C3 /* PageView.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -228,6 +244,8 @@
 				085ED0A017B617330037B9C3 /* MGSplitViewController.m in Sources */,
 				085ED0A117B617330037B9C3 /* MGSplitDividerView.m in Sources */,
 				085ED0A217B617330037B9C3 /* MGSplitCornersView.m in Sources */,
+				085ED0A917B6577A0037B9C3 /* DataSource.m in Sources */,
+				085ED0AD17B658B90037B9C3 /* PageViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
