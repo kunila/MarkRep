@@ -41,8 +41,7 @@ const CGFloat TEXT_VIEW_PADDING = 50.0;
 	
 	if (pageIndex >= 0 && pageIndex < [[DataSource sharedDataSource] numDataPages])
 	{
-		NSDictionary *pageData =
-        [[DataSource sharedDataSource] dataForPage:pageIndex];
+		NSDictionary *pageData =[[DataSource sharedDataSource] dataForPage:pageIndex];
 		label.text = [pageData objectForKey:@"pageName"];
 		textView.text = [pageData objectForKey:@"pageText"];
 		

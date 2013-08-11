@@ -35,8 +35,7 @@
 @property (nonatomic, retain) IBOutlet UIToolbar *toolbar;
 @property (nonatomic, retain) id detailItem;
 @property (nonatomic, retain) IBOutlet UILabel *detailDescriptionLabel;
-@property (nonatomic, retain) PageViewController *currentPage;
-@property (nonatomic, retain) PageViewController *nextPage;
+
 
 - (IBAction)toggleMasterView:(id)sender;
 - (IBAction)toggleVertical:(id)sender;
@@ -44,6 +43,6 @@
 - (IBAction)toggleMasterBeforeDetail:(id)sender;
 - (IBAction)changePage:(id)sender;
 
-- (void)applyNewIndex:(NSInteger)newIndex pageController:(PageViewController *)pageController;
+-(void)goToSlide:(NSInteger)newIndex;
 
 @end

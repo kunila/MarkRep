@@ -192,6 +192,17 @@
     [scrollView scrollRectToVisible:frame animated:YES];
 }
 
+-(void)goToSlide:(NSInteger)newIndex
+{
+    NSInteger pageIndex = newIndex;//pageControl.currentPage;
+    
+	// update the scroll view to the appropriate page
+    CGRect frame = scrollView.frame;
+    frame.origin.x = frame.size.width * pageIndex;
+    frame.origin.y = 0;
+    [scrollView scrollRectToVisible:frame animated:YES];
+    
+}
 
 
 #pragma mark -

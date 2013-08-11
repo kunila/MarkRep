@@ -90,9 +90,7 @@
 - (void)tableView:(UITableView *)aTableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
 	// When a row is selected, set the detail view controller's detail item to the item associated with the selected row.
-    //detailViewController.detailItem = [NSString stringWithFormat:@"Row %d", indexPath.row];
-    //detailViewController.currentPage = [[PageViewController alloc] initWithNibName:@"PageView" bundle:nil];
-    //[detailViewController.currentPage setPageIndex:indexPath.row];
+    [detailViewController goToSlide:indexPath.row];
 }
 
 
