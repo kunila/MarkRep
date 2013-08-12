@@ -49,9 +49,13 @@
 
 - (void)viewDidLoad{
     
-    currentPage = [[PageViewController alloc] initWithNibName:@"PageView" bundle:nil];
-	nextPage = [[PageViewController alloc] initWithNibName:@"PageView" bundle:nil];
-	[scrollView addSubview:currentPage.view];
+    //currentPage = [[PageViewController alloc] initWithNibName:@"PageView" bundle:nil];
+    currentPage = [[PageViewController alloc] init];
+	//nextPage = [[PageViewController alloc] initWithNibName:@"PageView" bundle:nil];
+    nextPage = [[PageViewController alloc] init];
+
+	
+    [scrollView addSubview:currentPage.view];
 	[scrollView addSubview:nextPage.view];
     
 	NSInteger widthCount = [[DataSource sharedDataSource] numDataPages];

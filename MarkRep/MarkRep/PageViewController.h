@@ -7,19 +7,40 @@
 //
 
 #import <UIKit/UIKit.h>
+#import <MediaPlayer/MediaPlayer.h>
 
 @interface PageViewController : UIViewController {
 
     NSInteger pageIndex;
-    BOOL textViewNeedsUpdate;
-    IBOutlet UILabel *label;
-    IBOutlet UITextView *textView;
+    
+    MPMoviePlayerController *theMovie;
+    
+    //BOOL textViewNeedsUpdate;
+    //IBOutlet UILabel *label;
+    //IBOutlet UITextView *textView;
+    
+    CGRect firstQuadFrame;
+    CGRect secondQuadFrame;
+    CGRect thirdQuadFrame;
+    CGRect fourthQuadFrame;
+    
+    UIView *slideView;
+    UIView *firstQuadView;
+    UIView *secondQuadView;
+    UIView *thirdQuadView;
+    
+    UIImageView *firstImgView;
+    
+    NSString *youtubeStr;
+    UIWebView *secondQuadWebView;
+    
+  
     
 }
 
 @property NSInteger pageIndex;
 
-- (void)updateTextViews:(BOOL)force;
+//- (void)updateTextViews:(BOOL)force;
 
 @end
 
